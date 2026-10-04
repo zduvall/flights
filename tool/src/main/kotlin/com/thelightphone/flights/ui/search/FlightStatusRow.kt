@@ -80,10 +80,10 @@ fun FlightStatusRow(
             fS.arrival.runwayTime != null
     val isDeparted = isArrived ||
             fS.status in setOf(
-                FlightStatus.DEPARTED,
-                FlightStatus.EN_ROUTE,
-                FlightStatus.APPROACHING,
-            ) ||
+        FlightStatus.DEPARTED,
+        FlightStatus.EN_ROUTE,
+        FlightStatus.APPROACHING,
+    ) ||
             fS.departure.runwayTime != null
 
     val departureStatusLabel = if (isDeparted) "Departed" else "Scheduled departure"
@@ -94,31 +94,23 @@ fun FlightStatusRow(
     }
 
     val departureActiveTime = if (isDeparted) {
-        listOfNotNull(
-            fS.departure.runwayTime?.local,
-            fS.departure.revisedTime?.local,
-            fS.departure.scheduledTime?.local,
-        ).firstOrNull()
+        fS.departure.revisedTime?.local
+            ?: fS.departure.runwayTime?.local
+            ?: fS.departure.scheduledTime?.local
     } else {
-        listOfNotNull(
-            fS.departure.revisedTime?.local,
-            fS.departure.scheduledTime?.local,
-        ).firstOrNull()
+        fS.departure.revisedTime?.local
+            ?: fS.departure.predictedTime?.local
+            ?: fS.departure.scheduledTime?.local
     }
 
     val arrivalActiveTime = if (isArrived) {
-        listOfNotNull(
-            fS.arrival.runwayTime?.local,
-            fS.arrival.revisedTime?.local,
-            fS.arrival.predictedTime?.local,
-            fS.arrival.scheduledTime?.local,
-        ).firstOrNull()
+        fS.arrival.revisedTime?.local
+            ?: fS.arrival.runwayTime?.local
+            ?: fS.arrival.scheduledTime?.local
     } else {
-        listOfNotNull(
-            fS.arrival.revisedTime?.local,
-            fS.arrival.predictedTime?.local,
-            fS.arrival.scheduledTime?.local,
-        ).firstOrNull()
+        fS.arrival.revisedTime?.local
+            ?: fS.arrival.predictedTime?.local
+            ?: fS.arrival.scheduledTime?.local
     }
 
     val depTimeFormatted = formatFlightTime24h(departureActiveTime).ifEmpty { "--:--" }
