@@ -52,6 +52,13 @@ private fun formatLocationDate(
     ).joinToString(" · ")
 }
 
+private fun formatTerminalGate(terminal: String?, gate: String?): String {
+    return listOfNotNull(
+        terminal?.takeIf { it.isNotBlank() }?.let { "T$it" },
+        gate?.takeIf { it.isNotBlank() }?.let { "G$it" },
+    ).joinToString(" · ")
+}
+
 @Composable
 fun FlightStatusRow(
     fS: Flight,
@@ -75,6 +82,9 @@ fun FlightStatusRow(
             ?: fS.arrival.predictedTime?.local
             ?: fS.arrival.runwayTime?.local,
     )
+
+    val depTermGate = formatTerminalGate(fS.departure.terminal, fS.departure.gate)
+    val arrTermGate = formatTerminalGate(fS.arrival.terminal, fS.arrival.gate)
 
     val isArrived = fS.status == FlightStatus.ARRIVED ||
             fS.arrival.runwayTime != null
@@ -141,18 +151,24 @@ fun FlightStatusRow(
             LightText(arrLocationDate, variant = LightTextVariant.Detail)
         }
 
-        // 3. Movement Status Labels
+        // 3. Movement Status Labels (with terminal/gate when available)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             LightText(
-                departureStatusLabel,
+                listOfNotNull(
+                    departureStatusLabel,
+                    depTermGate.takeIf { it.isNotEmpty() },
+                ).joinToString(" · "),
                 variant = LightTextVariant.Fine,
                 lighten = true,
             )
             LightText(
-                arrivalStatusLabel,
+                listOfNotNull(
+                    arrivalStatusLabel,
+                    arrTermGate.takeIf { it.isNotEmpty() },
+                ).joinToString(" · "),
                 variant = LightTextVariant.Fine,
                 lighten = true,
             )
