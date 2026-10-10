@@ -86,21 +86,18 @@ fun FlightStatusRow(
     val depTermGate = formatTerminalGate(fS.departure.terminal, fS.departure.gate)
     val arrTermGate = formatTerminalGate(fS.arrival.terminal, fS.arrival.gate)
 
-    val isArrived = fS.status == FlightStatus.ARRIVED ||
-            fS.arrival.runwayTime != null
-    val isDeparted = isArrived ||
-            fS.status in setOf(
+    val isArrived = fS.status == FlightStatus.ARRIVED
+    val isDeparted = isArrived || fS.status in setOf(
         FlightStatus.DEPARTED,
         FlightStatus.EN_ROUTE,
         FlightStatus.APPROACHING,
-    ) ||
-            fS.departure.runwayTime != null
+    )
 
-    val departureStatusLabel = if (isDeparted) "Departed" else "Scheduled departure"
+    val departureStatusLabel = if (isDeparted) "Departed" else "Scheduled Dep"
     val arrivalStatusLabel = when {
         isArrived -> "Arrived"
-        isDeparted -> "Estimated arrival"
-        else -> "Scheduled arrival"
+        isDeparted -> "Estimated Arr"
+        else -> "Scheduled Arr"
     }
 
     val departureActiveTime = if (isDeparted) {
