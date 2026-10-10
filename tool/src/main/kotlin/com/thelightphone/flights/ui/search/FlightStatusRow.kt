@@ -116,8 +116,8 @@ fun FlightStatusRow(
     val depTimeFormatted = formatFlightTime24h(departureActiveTime).ifEmpty { "--:--" }
     val arrTimeFormatted = formatFlightTime24h(arrivalActiveTime).ifEmpty { "--:--" }
 
-    // 1. IATA codes (e.g. "JFK" or "LAX")
     Column(modifier = modifier) {
+        // 1. IATA codes (e.g. "JFK" or "LAX")
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
