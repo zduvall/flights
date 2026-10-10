@@ -190,14 +190,14 @@ fun FlightStatusRow(
                     text = depScheduledTimeFormatted.takeIf { showDepStrikethrough }.orEmpty(),
                     variant = LightTextVariant.Fine,
                     lighten = true,
-                    // strikethrough = showDepStrikethrough // FIXME: comment in when supported by Light SDK
+                    strikethrough = showDepStrikethrough,
                 )
 
                 LightText(
                     text = arrScheduledTimeFormatted.takeIf { showArrStrikethrough }.orEmpty(),
                     variant = LightTextVariant.Fine,
                     lighten = true,
-                    // strikethrough = showArrStrikethrough // FIXME: comment in when supported by Light SDK
+                    strikethrough = showArrStrikethrough,
                 )
             }
         }
