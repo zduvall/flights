@@ -11,6 +11,7 @@ import com.thelightphone.flights.data.AeroDataBoxClient
 import com.thelightphone.flights.data.SettingsRepository
 import com.thelightphone.flights.model.EditorRequest
 import com.thelightphone.flights.model.UsageLimits
+import com.thelightphone.flights.ui.components.StatusMessage
 import com.thelightphone.flights.ui.editor.TextInputEditorScreen
 import com.thelightphone.flights.ui.navigation.FlightsTab
 import com.thelightphone.flights.ui.navigation.TabScaffold
@@ -128,7 +129,7 @@ private fun ApiKeyStatus(
     )
 
     // Determine status text from loading/error/usage limits
-    val statusText = when {
+    val statusMessage = when {
         isLoading -> "Loading..."
         errorMessage != null -> errorMessage
         usageLimits != null -> {
@@ -143,19 +144,7 @@ private fun ApiKeyStatus(
         else -> null
     }
 
-    statusText?.let { text ->
-        LightText(
-            text = text,
-            variant = LightTextVariant.Fine,
-            modifier = Modifier.padding(
-                start = 0.75f.gridUnitsAsDp(),
-                end = 0.75f.gridUnitsAsDp(),
-                bottom = 0.75f.gridUnitsAsDp()
-            ),
-            align = TextAlign.Justify,
-            lighten = true,
-        )
-    }
+    statusMessage?.let { text -> StatusMessage(text) }
 }
 
 /** Returns [LocalDate] that is [seconds] from now (formatted as yyyy-mm-dd) */

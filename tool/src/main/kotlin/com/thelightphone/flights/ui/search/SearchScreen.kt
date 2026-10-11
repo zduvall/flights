@@ -17,6 +17,7 @@ import com.thelightphone.flights.data.AeroDataBoxClient
 import com.thelightphone.flights.data.FlightsRepository
 import com.thelightphone.flights.data.SettingsRepository
 import com.thelightphone.flights.model.EditorRequest
+import com.thelightphone.flights.ui.components.StatusMessage
 import com.thelightphone.flights.ui.editor.TextInputEditorScreen
 import com.thelightphone.flights.ui.navigation.FlightsTab
 import com.thelightphone.flights.ui.navigation.TabScaffold
@@ -111,19 +112,8 @@ class SearchScreen(
 
             when {
                 viewModel.isLoading || viewModel.errorMessage != null -> {
-                    val displayText = if (viewModel.isLoading) "Loading..." else viewModel.errorMessage.orEmpty()
-
-                    LightText(
-                        text = displayText,
-                        variant = LightTextVariant.Fine,
-                        modifier = Modifier.padding(
-                            start = 0.75f.gridUnitsAsDp(),
-                            end = 0.75f.gridUnitsAsDp(),
-                            bottom = 0.75f.gridUnitsAsDp()
-                        ),
-                        align = TextAlign.Justify,
-                        lighten = true
-                    )
+                    val statusMessage = if (viewModel.isLoading) "Loading..." else viewModel.errorMessage.orEmpty()
+                    StatusMessage(statusMessage)
                 }
 
                 else -> {
