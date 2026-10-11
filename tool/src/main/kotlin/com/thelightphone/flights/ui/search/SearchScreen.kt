@@ -60,7 +60,7 @@ class SearchScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 0.75f.gridUnitsAsDp()),
+                    .padding(bottom = 1f.gridUnitsAsDp()),
                 verticalAlignment = Alignment.Bottom,
             ) {
                 LightTextField(
@@ -116,7 +116,7 @@ class SearchScreen(
                     flightStatus.forEachIndexed { index, status ->
                         FlightStatusRow(status)
                         if (index < flightStatus.lastIndex) {
-                            Spacer(modifier = Modifier.height(0.5f.gridUnitsAsDp()))
+                            Spacer(modifier = Modifier.height(0.75f.gridUnitsAsDp()))
                         }
                     }
                 }
