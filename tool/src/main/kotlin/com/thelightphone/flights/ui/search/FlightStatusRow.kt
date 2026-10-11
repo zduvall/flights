@@ -68,8 +68,8 @@ fun FlightStatusRow(
         municipalityName = fS.departure.airport.municipalityName,
         shortName = fS.departure.airport.shortName,
         name = fS.departure.airport.name,
-        localTime = fS.departure.scheduledTime?.local
-            ?: fS.departure.revisedTime?.local
+        localTime = fS.departure.revisedTime?.local
+            ?: fS.departure.scheduledTime?.local
             ?: fS.departure.runwayTime?.local,
     )
 
@@ -77,10 +77,10 @@ fun FlightStatusRow(
         municipalityName = fS.arrival.airport.municipalityName,
         shortName = fS.arrival.airport.shortName,
         name = fS.arrival.airport.name,
-        localTime = fS.arrival.scheduledTime?.local
-            ?: fS.arrival.revisedTime?.local
-            ?: fS.arrival.predictedTime?.local
-            ?: fS.arrival.runwayTime?.local,
+        localTime = fS.arrival.revisedTime?.local
+            ?: fS.arrival.scheduledTime?.local
+            ?: fS.arrival.runwayTime?.local
+            ?: fS.arrival.predictedTime?.local,
     )
 
     val depTermGate = formatTerminalGate(fS.departure.terminal, fS.departure.gate)
