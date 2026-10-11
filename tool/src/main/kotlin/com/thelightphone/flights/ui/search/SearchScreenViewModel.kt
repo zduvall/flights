@@ -77,12 +77,10 @@ class SearchScreenViewModel(
 
         viewModelScope.launch {
             try {
-                val standardFlightNumber = standardizeFlightNumber(flightNumber)
-
-                when (val result = aeroDataBoxClient.fetchFlightStatus(standardFlightNumber)) {
+                when (val result = aeroDataBoxClient.fetchFlightStatus(flightNumber)) {
                     is ApiResult.Success -> {
                         val updatedHistory = searchHistory.value.toMutableMap()
-                        updatedHistory[standardFlightNumber] = result.data
+                        updatedHistory[flightNumber] = result.data
                         flightsRepository.setSearchHistory(updatedHistory)
                     }
 
@@ -125,9 +123,3 @@ class SearchScreenViewModel(
     }
 }
 
-/**
- * Standardizes flight number by removing whitespace & converting to lowercase.
- */
-fun standardizeFlightNumber(flightNumber: String): String {
-    return flightNumber.replace("\\s".toRegex(), "").lowercase()
-}

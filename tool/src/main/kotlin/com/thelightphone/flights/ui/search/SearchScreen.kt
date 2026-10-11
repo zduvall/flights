@@ -52,7 +52,6 @@ class SearchScreen(
         val searchHistoryValue by viewModel.searchHistory.collectAsState()
 
         val isSearchPopulated = latestSearchValue.isNotBlank()
-        val standardFlightNumber = standardizeFlightNumber(latestSearchValue)
 
         TabScaffold(
             title = "Search",
@@ -91,8 +90,9 @@ class SearchScreen(
                         navigateTo(
                             screenFactory = { TextInputEditorScreen(it, editorRequest) },
                             resultCallback = { query ->
-                                viewModel.setLatestSearch(query)
-                                viewModel.handleSearchQuery(query)
+                                val normalizedFN = normalizeFlightNumber(query)
+                                viewModel.setLatestSearch(normalizedFN)
+                                viewModel.handleSearchQuery(normalizedFN)
                             }
                         )
                     },
@@ -127,7 +127,7 @@ class SearchScreen(
                 }
 
                 else -> {
-                    val flightStatus = searchHistoryValue[standardFlightNumber].orEmpty()
+                    val flightStatus = searchHistoryValue[latestSearchValue].orEmpty()
 
                     flightStatus.forEachIndexed { index, status ->
                         FlightStatusRow(status)
@@ -139,4 +139,11 @@ class SearchScreen(
             }
         }
     }
+}
+
+/**
+ * Normalizes flight number by removing whitespace & converting to uppercase.
+ */
+fun normalizeFlightNumber(flightNumber: String): String {
+    return flightNumber.replace("\\s".toRegex(), "").uppercase()
 }
