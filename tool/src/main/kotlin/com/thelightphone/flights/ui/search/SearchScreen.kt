@@ -4,12 +4,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.text.style.TextAlign
 import com.thelightphone.flights.data.AeroDataBoxClient
 import com.thelightphone.flights.data.FlightsRepository
@@ -57,9 +59,22 @@ class SearchScreen(
             activeTab = FlightsTab.Search,
             onNavigate = { navigateTo(it) },
         ) {
+            // Calculate outside layout lambda b/c it isn't a composable context
+            val oneGridUnit = 1f.gridUnitsAsDp()
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    // LightTextField internally adds 1-grid-unit top padding;
+                    // counteract so spacing matches other tabs
+                    // TODO: remove if LightTextField becomes more configurable
+                    .layout { measurable, constraints ->
+                        val topReduction = oneGridUnit.roundToPx()
+                        val placeable = measurable.measure(constraints)
+                        layout(placeable.width, (placeable.height - topReduction).coerceAtLeast(0)) {
+                            placeable.placeRelative(0, -topReduction)
+                        }
+                    }
                     .padding(bottom = 1f.gridUnitsAsDp()),
                 verticalAlignment = Alignment.Bottom,
             ) {
