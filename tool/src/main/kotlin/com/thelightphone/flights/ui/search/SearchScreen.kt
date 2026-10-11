@@ -68,6 +68,7 @@ class SearchScreen(
                     // LightTextField internally adds 1-grid-unit top padding;
                     // counteract so spacing matches other tabs
                     // TODO: remove if LightTextField becomes more configurable
+                    // https://github.com/lightphone/light-sdk/issues/277
                     .layout { measurable, constraints ->
                         val topReduction = oneGridUnit.roundToPx()
                         val placeable = measurable.measure(constraints)
