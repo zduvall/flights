@@ -101,10 +101,11 @@ class SearchScreen(
                 )
 
                 if (isSearchPopulated) {
+                    // Refresh search for the current flight number
                     LightIcon(
                         icon = LightIcons.REFRESH,
                         modifier = Modifier.lightClickable {
-                            viewModel.handleSearchQuery()
+                            viewModel.handleSearchQuery(latestSearchValue)
                         },
                     )
                 }
