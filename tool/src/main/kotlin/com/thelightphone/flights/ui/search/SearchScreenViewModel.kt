@@ -64,8 +64,14 @@ class SearchScreenViewModel(
         }
     }
 
-    fun handleSearchQuery(flightNumber: String) {
-        setLatestSearch(flightNumber)
+    /**
+     * Handles the search query for a flight number. No-op if the flight number
+     * is blank.
+     * @param flightNumber The flight number to search for. Defaults to the
+     * latest search value (refreshes the search for the most recent query).
+     */
+    fun handleSearchQuery(flightNumber: String = latestSearch.value) {
+        if (flightNumber.isBlank()) return
         isLoading = true
         errorMessage = null
 
