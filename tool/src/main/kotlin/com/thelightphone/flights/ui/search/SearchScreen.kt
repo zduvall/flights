@@ -84,6 +84,7 @@ class SearchScreen(
                         )
                     },
                     modifier = Modifier.weight(1f),
+                    // Override the default top padding on the label
                     labelModifier = Modifier,
                     underlineStyleOverrides = LightTextFieldUnderlineStyle(
                         widthFraction = 0.95f,
