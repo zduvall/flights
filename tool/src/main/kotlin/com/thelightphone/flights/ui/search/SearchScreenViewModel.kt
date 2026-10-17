@@ -53,7 +53,7 @@ class SearchScreenViewModel(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyMap()
+            initialValue = linkedMapOf()
         )
 
     fun setSearchHistory(value: SearchHistory) {
@@ -78,7 +78,7 @@ class SearchScreenViewModel(
             try {
                 when (val result = aeroDataBoxClient.fetchFlightStatus(flightNumber)) {
                     is ApiResult.Success -> {
-                        val updatedHistory = searchHistory.value.toMutableMap()
+                        val updatedHistory = LinkedHashMap(searchHistory.value)
                         updatedHistory[flightNumber] = result.data
                         flightsRepository.setSearchHistory(updatedHistory)
                     }

@@ -11,7 +11,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-typealias SearchHistory = Map<String, List<Flight>>
+typealias SearchHistory = LinkedHashMap<String, List<Flight>>
 
 /**
  * Shared repository for flight search data.
