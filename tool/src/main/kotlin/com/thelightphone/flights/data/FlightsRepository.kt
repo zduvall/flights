@@ -35,9 +35,22 @@ class FlightsRepository(
         dataStore.edit { it[latestSearchKey] = value }
     }
 
-    suspend fun setSearchHistory(value: SearchHistory) {
+    suspend fun addSearchQuery(flightNumber: String, flights: List<Flight>) {
         dataStore.edit {
-            it[searchHistoryKey] = Json.encodeToString(value)
+            val json = it[searchHistoryKey] ?: "{}"
+            val searchHistory = Json.decodeFromString<SearchHistory>(json)
+            searchHistory.remove(flightNumber)
+            searchHistory[flightNumber] = flights
+            it[searchHistoryKey] = Json.encodeToString(searchHistory)
+        }
+    }
+
+    suspend fun deleteSearchQuery(flightNumber: String) {
+        dataStore.edit {
+            val json = it[searchHistoryKey] ?: "{}"
+            val searchHistory = Json.decodeFromString<SearchHistory>(json)
+            searchHistory.remove(flightNumber)
+            it[searchHistoryKey] = Json.encodeToString(searchHistory)
         }
     }
 }

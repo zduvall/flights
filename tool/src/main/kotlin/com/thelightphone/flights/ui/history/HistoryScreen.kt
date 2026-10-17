@@ -1,12 +1,22 @@
 package com.thelightphone.flights.ui.history
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
+import com.thelightphone.flights.data.FlightsRepository
 import com.thelightphone.flights.ui.navigation.FlightsTab
 import com.thelightphone.flights.ui.navigation.TabScaffold
 import com.thelightphone.sdk.LightScreen
 import com.thelightphone.sdk.SealedLightActivity
 import com.thelightphone.sdk.ui.LightText
 import com.thelightphone.sdk.ui.LightTextVariant
+import com.thelightphone.sdk.ui.LightIcon
+import com.thelightphone.sdk.ui.LightIcons
+import com.thelightphone.sdk.ui.lightClickable
+
 
 class HistoryScreen(
     sealedActivity: SealedLightActivity
@@ -16,20 +26,36 @@ class HistoryScreen(
         get() = HistoryScreenViewModel::class.java
 
     override fun createViewModel(): HistoryScreenViewModel {
-        return HistoryScreenViewModel()
+        val flightsRepository = FlightsRepository(lightContext.dataStore)
+        return HistoryScreenViewModel(flightsRepository)
     }
 
     @Composable
     override fun Content() {
+        val searchHistory = viewModel.searchHistory.collectAsState()
+
         TabScaffold(
-            title = "History",
+            title = "Search History",
             activeTab = FlightsTab.History,
             onNavigate = { navigateTo(it) },
         ) {
-            LightText(
-                text = "History Placeholder",
-                variant = LightTextVariant.Paragraph,
-            )
+            for (flightNumber in searchHistory.value.keys.reversed()) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    LightText(
+                        text = flightNumber,
+                        variant = LightTextVariant.Paragraph,
+                    )
+                    LightIcon(
+                        icon = LightIcons.DELETE,
+                        modifier = Modifier.lightClickable {
+                            viewModel.deleteSearchQuery(flightNumber)
+                        },
+                    )
+                }
+            }
         }
     }
 }

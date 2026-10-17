@@ -56,14 +56,6 @@ class SearchScreenViewModel(
             initialValue = linkedMapOf()
         )
 
-    fun setSearchHistory(value: SearchHistory) {
-        viewModelScope.launch {
-            withContext(NonCancellable) {
-                flightsRepository.setSearchHistory(value)
-            }
-        }
-    }
-
     /**
      * Handles the search query for a flight number. No-op if the flight number
      * is a blank string.
@@ -78,9 +70,7 @@ class SearchScreenViewModel(
             try {
                 when (val result = aeroDataBoxClient.fetchFlightStatus(flightNumber)) {
                     is ApiResult.Success -> {
-                        val updatedHistory = LinkedHashMap(searchHistory.value)
-                        updatedHistory[flightNumber] = result.data
-                        flightsRepository.setSearchHistory(updatedHistory)
+                        flightsRepository.addSearchQuery(flightNumber, result.data)
                     }
 
                     is ApiResult.Error.MissingAuth -> {
