@@ -20,6 +20,7 @@ import com.thelightphone.sdk.SealedLightActivity
 import com.thelightphone.sdk.ui.lightClickable
 import com.thelightphone.sdk.ui.LightText
 import com.thelightphone.sdk.ui.LightTextField
+import com.thelightphone.sdk.ui.LightTextFieldUnderlineStyle
 import com.thelightphone.sdk.ui.LightTextVariant
 import com.thelightphone.sdk.ui.gridUnitsAsDp
 import java.time.Instant
@@ -70,7 +71,10 @@ class SettingsScreen(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 0.75f.gridUnitsAsDp())
+                    .padding(bottom = 0.75f.gridUnitsAsDp()),
+                underlineStyleOverrides = LightTextFieldUnderlineStyle(
+                    widthFraction = 1.0f,
+                )
             )
             LightText(
                 text = """
