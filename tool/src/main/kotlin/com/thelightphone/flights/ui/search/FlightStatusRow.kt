@@ -93,11 +93,11 @@ fun FlightStatusRow(
         FlightStatus.APPROACHING,
     )
 
-    val departureStatusLabel = if (isDeparted) "Departed" else "Scheduled Dep"
+    val departureStatusLabel = if (isDeparted) "Departed" else "Scheduled"
     val arrivalStatusLabel = when {
         isArrived -> "Arrived"
-        isDeparted -> "Estimated Arr"
-        else -> "Scheduled Arr"
+        isDeparted -> "Estimated"
+        else -> "Scheduled"
     }
 
     val departureActiveTime = if (isDeparted) {
