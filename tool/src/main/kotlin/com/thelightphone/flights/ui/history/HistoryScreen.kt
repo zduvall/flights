@@ -46,11 +46,7 @@ class HistoryScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(
-                            bottom = 1f.gridUnitsAsDp(),
-                            start = 0.25f.gridUnitsAsDp(),
-                            end = 0.25f.gridUnitsAsDp(),
-                        ),
+                        .padding(bottom = 1f.gridUnitsAsDp()),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
