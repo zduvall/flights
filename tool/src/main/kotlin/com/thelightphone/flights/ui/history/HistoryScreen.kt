@@ -13,10 +13,10 @@ import com.thelightphone.flights.ui.navigation.FlightsTab
 import com.thelightphone.flights.ui.navigation.TabScaffold
 import com.thelightphone.sdk.LightScreen
 import com.thelightphone.sdk.SealedLightActivity
-import com.thelightphone.sdk.ui.LightText
-import com.thelightphone.sdk.ui.LightTextVariant
 import com.thelightphone.sdk.ui.LightIcon
 import com.thelightphone.sdk.ui.LightIcons
+import com.thelightphone.sdk.ui.LightText
+import com.thelightphone.sdk.ui.LightTextVariant
 import com.thelightphone.sdk.ui.gridUnitsAsDp
 import com.thelightphone.sdk.ui.lightClickable
 
@@ -47,7 +47,9 @@ class HistoryScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            bottom = 0.7f.gridUnitsAsDp(),
+                            bottom = 1f.gridUnitsAsDp(),
+                            start = 0.25f.gridUnitsAsDp(),
+                            end = 0.25f.gridUnitsAsDp(),
                         ),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
@@ -61,6 +63,7 @@ class HistoryScreen(
                         modifier = Modifier.lightClickable {
                             viewModel.deleteSearchQuery(flightNumber)
                         },
+                        size = 1.5f
                     )
                 }
             }
