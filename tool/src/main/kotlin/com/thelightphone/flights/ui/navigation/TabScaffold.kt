@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -33,6 +34,15 @@ fun TabScaffold(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val themeColors by LightThemeController.colors.collectAsState()
+    val scrollState = rememberScrollState()
+
+    // since it takes up space either way when using "Outside", use that setting
+    // only when there is content to scroll
+    val scrollBarPosition = if (scrollState.maxValue > 0) {
+        LightScrollBarPosition.Outside
+    } else {
+        LightScrollBarPosition.Inside
+    }
 
     LightTheme(colors = themeColors) {
         Column(
@@ -50,7 +60,8 @@ fun TabScaffold(
                     .weight(1f)
                     .fillMaxWidth()
                     .padding(horizontal = 1f.gridUnitsAsDp()),
-                scrollBarPosition = LightScrollBarPosition.Inside,
+                scrollState = scrollState,
+                scrollBarPosition = scrollBarPosition,
                 content = content,
             )
 
