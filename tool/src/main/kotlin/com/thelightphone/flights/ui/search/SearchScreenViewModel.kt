@@ -36,12 +36,12 @@ class SearchScreenViewModel(
      * Persist the latest flight status search query to local disk.
      * @param value The latest search query string to persist.
      */
-    fun setLatestSearch(value: String) {
+    fun setLatestSearch(flightNumber: String) {
         viewModelScope.launch {
             // NonCancellable ensures that the DataStore write completes
             // even if the ViewModel is destroyed by navigating away
             withContext(NonCancellable) {
-                flightsRepository.setLatestSearch(value)
+                flightsRepository.setLatestSearch(flightNumber)
             }
         }
     }
