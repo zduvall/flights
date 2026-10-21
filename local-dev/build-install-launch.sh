@@ -7,15 +7,36 @@
 #   ./gradlew :tool:installDebug
 #     Compiles the :tool module and installs the new debug build onto the
 #     active emulator.
-#   adb shell am start
-#     Executes Android's Activity Manager to launch the app activity.
-#   -S
-#     Force-stops any currently running instance first so your updated UI and
-#     code load cleanly.
-#   -n <component>
-#     Specifies the exact app package and activity to open.
+#   adb shell am force-stop
+#     Stops any currently running instance so the app restarts cleanly.
+#   adb shell monkey
+#     Launches the app using its registered launcher intent, without requiring
+#     the activity class to be hardcoded.
+#
+# Requirements:
+#   Run from the repository root with the emulator online.
 
-./gradlew :tool:installDebug && \
-  adb shell am start \
-    -S \
-    -n com.thelightphone.flights/com.thelightphone.sdk.LightActivity
+set -Eeuo pipefail
+trap 'echo "ERROR: Command failed at line $LINENO (exit code $?)" >&2' ERR
+
+# Print informational messages in cyan.
+info() {
+  echo -e "\033[36m==> $*\033[0m"
+}
+
+info "Building and installing app..."
+./gradlew :tool:installDebug
+
+info "Checking connected devices..."
+adb devices -l
+
+info "Force-stopping app..."
+adb shell am force-stop com.thelightphone.flights
+
+info "Launching app..."
+adb shell monkey -p com.thelightphone.flights 1
+
+# NOTE: use -v for verbose output debugging
+# adb shell monkey -v -p com.thelightphone.flights 1
+
+info "Done."

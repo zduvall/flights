@@ -8,13 +8,23 @@ NOTE: `// REF-agp9-build-fixes` marks changes I made to avoid kotlin build error
 
 ---
 
-## 1. Emulator Setup (One-Time Setup)
+## 0. Nix Development shell
+
+Enter the project-specific development environment. This is required for all shell commands below.
+
+```zsh
+nix develop ./local-dev
+```
+
+---
+
+## 1. Emulator Setup (one-time setup)
 
 If you need to re-create the Light Phone III emulator profile from scratch:
 
 ### 1. Create the AVD
 
-```bash
+```zsh
 avdmanager create avd \
   -n LightPhone3 \
   -k "system-images;android-34;default;x86_64" \
@@ -24,16 +34,31 @@ avdmanager create avd \
 
 _Creates a fresh virtual device named `LightPhone3` based on the AOSP Android 14 (API 34) x86_64 system image._
 
-### 2. Configure Light Phone III Display & Memory Limits
+### 2. Configure Light Phone III Display & Memory Limits (one-time setup)
 
-```bash
-cat << 'EOF' >> ~/.android/avd/LightPhone3.avd/config.ini
-hw.lcd.width = 1080
-hw.lcd.height = 1240
-hw.lcd.density = 420
-hw.ramSize = 1536
-vm.heapSize = 256
-EOF
+Edit the `config.ini` to make the emulator more like a light phone.
+
+```zsh
+python3 - <<'PY'
+from pathlib import Path
+
+config = Path.home() / ".android/avd/LightPhone3.avd/config.ini"
+settings = {
+    "hw.lcd.width": "1080",
+    "hw.lcd.height": "1240",
+    "hw.lcd.density": "420",
+    "hw.ramSize": "1536",
+    "vm.heapSize": "256",
+}
+
+lines = config.read_text().splitlines()
+lines = [
+    line for line in lines
+    if line.partition("=")[0].strip() not in settings
+]
+lines.extend(f"{key}={value}" for key, value in settings.items())
+config.write_text("\n".join(lines) + "\n")
+PY
 ```
 
 _Sets the screen to 1080x1240 (~420 dpi) to match the Light Phone III form factor and caps memory to 1.5 GB RAM._
@@ -42,7 +67,7 @@ _Sets the screen to 1080x1240 (~420 dpi) to match the Light Phone III form facto
 
 ## 2. Running the Emulator
 
-```bash
+```zsh
 ./local-dev/start-emulator.sh
 ```
 
@@ -52,7 +77,7 @@ _Sets the screen to 1080x1240 (~420 dpi) to match the Light Phone III form facto
 
 Once the emulator is running and connected (verify with `adb devices`):
 
-```bash
+```zsh
 ./local-dev/build-install-launch.sh
 ```
 
@@ -64,7 +89,7 @@ To run the full LightOS interface as a privileged system app:
 
 ### 1. Generate Platform Signing Keys (One-time)
 
-```bash
+```zsh
 mkdir -p sdk/emulator/keys
 curl -s -o /tmp/platform.x509.pem https://raw.githubusercontent.com/wfairclough/android_aosp_keys/refs/heads/master/platform.x509.pem
 curl -s -o /tmp/platform.pk8 https://raw.githubusercontent.com/wfairclough/android_aosp_keys/refs/heads/master/platform.pk8
@@ -77,7 +102,7 @@ rm /tmp/platform.pk8 /tmp/platform.x509.pem /tmp/platform.pem /tmp/platform.p12
 
 ### 2. Build and push to `/system/priv-app`
 
-```bash
+```zsh
 adb root
 adb remount
 ./gradlew :sdk:emulator:assembleDebug
@@ -91,14 +116,14 @@ adb reboot
 ## 5. Useful Debugging Commands
 
 - **View live logs filtered to your app**: <!-- Haven't confirmed this works -->
-  ```bash
+  ```zsh
   adb logcat -s LightTool
   ```
 - **Uninstall the tool**:
-  ```bash
+  ```zsh
   adb uninstall com.thelightphone.app
   ```
 - **Check connected devices**:
-  ```bash
+  ```zsh
   adb devices
   ```
