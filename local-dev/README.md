@@ -16,6 +16,12 @@ Enter the project-specific development environment. This is required for all she
 nix develop ./local-dev
 ```
 
+Tip for vscode. Open the project from inside the nix shell.
+
+```zsh
+nix develop ./local-dev -c code .
+```
+
 ---
 
 ## 1. Emulator Setup (one-time setup)
