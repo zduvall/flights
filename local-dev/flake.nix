@@ -5,7 +5,7 @@
 
   outputs = { nixpkgs, ... }:
     let
-      # This environment currently targets your Intel Mac.
+      # Configured for an Intel Mac.
       system = "x86_64-darwin";
 
       # Create a separately configured nixpkgs instance for the Light Phone /
