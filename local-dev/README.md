@@ -34,34 +34,25 @@ avdmanager create avd \
 
 _Creates a fresh virtual device named `LightPhone3` based on the AOSP Android 14 (API 34) x86_64 system image._
 
-### 2. Configure Light Phone III Display & Memory Limits (one-time setup)
+### 2. Configure Light Phone III Display & Memory Limits
 
-Edit the `config.ini` to make the emulator more like a light phone.
+Run the configuration script after creating the `LightPhone3` AVD. It updates the display dimensions and memory settings in the AVD's `config.ini`. These settings approximate the Light Phone III's display form factor and configure the emulator's memory parameters. The emulator may override the requested RAM allocation at runtime.
 
 ```zsh
-python3 - <<'PY'
-from pathlib import Path
-
-config = Path.home() / ".android/avd/LightPhone3.avd/config.ini"
-settings = {
-    "hw.lcd.width": "1080",
-    "hw.lcd.height": "1240",
-    "hw.lcd.density": "420",
-    "hw.ramSize": "1536",
-    "vm.heapSize": "256",
-}
-
-lines = config.read_text().splitlines()
-lines = [
-    line for line in lines
-    if line.partition("=")[0].strip() not in settings
-]
-lines.extend(f"{key}={value}" for key, value in settings.items())
-config.write_text("\n".join(lines) + "\n")
-PY
+./local-dev/configure-emulator.sh
 ```
 
-_Sets the screen to 1080x1240 (~420 dpi) to match the Light Phone III form factor and caps memory to 1.5 GB RAM._
+Configured settings:
+
+| Setting          | Purpose                  |
+| ---------------- | ------------------------ |
+| `hw.lcd.width`   | Display width in pixels  |
+| `hw.lcd.height`  | Display height in pixels |
+| `hw.lcd.density` | Display density in dpi   |
+| `hw.ramSize`     | Requested RAM in MB      |
+| `vm.heapSize`    | VM heap size in MB       |
+
+Re-run this script whenever you recreate the AVD or want to reapply these settings.
 
 ---
 
