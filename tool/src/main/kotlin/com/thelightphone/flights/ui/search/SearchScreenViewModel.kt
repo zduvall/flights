@@ -34,6 +34,7 @@ class SearchScreenViewModel(
 
     /**
      * Persist the latest flight status search query to local disk.
+     * REF-setLatestSearch: Duplicate code, keep in sync.
      * @param value The latest search query string to persist.
      */
     fun setLatestSearch(flightNumber: String) {
