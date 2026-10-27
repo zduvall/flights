@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import com.thelightphone.flights.data.FlightsRepository
 import com.thelightphone.flights.ui.navigation.FlightsTab
 import com.thelightphone.flights.ui.navigation.TabScaffold
+import com.thelightphone.flights.ui.search.SearchScreen
 import com.thelightphone.sdk.LightScreen
 import com.thelightphone.sdk.SealedLightActivity
 import com.thelightphone.sdk.ui.LightIcon
