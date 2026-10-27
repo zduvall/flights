@@ -53,6 +53,10 @@ class HistoryScreen(
                     LightText(
                         text = flightNumber,
                         variant = LightTextVariant.Subheading,
+                        modifier = Modifier.lightClickable {
+                            viewModel.setLatestSearch(flightNumber)
+                            navigateTo(::SearchScreen)
+                        }
                     )
                     LightIcon(
                         icon = LightIcons.DELETE,
