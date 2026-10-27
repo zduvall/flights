@@ -20,6 +20,7 @@ import com.thelightphone.flights.ui.components.StatusMessage
 import com.thelightphone.flights.ui.editor.TextInputEditorScreen
 import com.thelightphone.flights.ui.navigation.FlightsTab
 import com.thelightphone.flights.ui.navigation.TabScaffold
+import com.thelightphone.sdk.InitialScreen
 import com.thelightphone.sdk.LightScreen
 import com.thelightphone.sdk.SealedLightActivity
 import com.thelightphone.sdk.ui.LightIcon
@@ -31,6 +32,7 @@ import com.thelightphone.sdk.ui.LightTextVariant
 import com.thelightphone.sdk.ui.gridUnitsAsDp
 import com.thelightphone.sdk.ui.lightClickable
 
+@InitialScreen
 class SearchScreen(
     sealedActivity: SealedLightActivity
 ) : LightScreen<Unit, SearchScreenViewModel>(sealedActivity) {

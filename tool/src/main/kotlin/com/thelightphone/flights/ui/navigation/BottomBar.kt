@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.thelightphone.flights.ui.history.HistoryScreen
-import com.thelightphone.flights.ui.home.HomeScreen
 import com.thelightphone.flights.ui.search.SearchScreen
 import com.thelightphone.flights.ui.settings.SettingsScreen
 import com.thelightphone.sdk.SealedLightActivity
@@ -31,8 +30,7 @@ private data class TabConfig(
 )
 
 private val tabs = listOf(
-    TabConfig(FlightsTab.Home, LightIcons.AIRPLANE, "Home", ::HomeScreen),
-    TabConfig(FlightsTab.Search, LightIcons.SEARCH, "Search", ::SearchScreen),
+    TabConfig(FlightsTab.Search, LightIcons.AIRPLANE, "Search", ::SearchScreen),
     TabConfig(FlightsTab.History, LightIcons.LIST, "History", ::HistoryScreen),
     TabConfig(FlightsTab.Settings, LightIcons.SETTINGS, "Settings", ::SettingsScreen),
 )
