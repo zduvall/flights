@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.thelightphone.flights.model.Flight
 import com.thelightphone.flights.model.FlightStatus
@@ -54,8 +55,8 @@ private fun formatLocationDate(
 
 private fun formatTerminalGate(terminal: String?, gate: String?): String {
     return listOfNotNull(
-        terminal?.takeIf { it.isNotBlank() }?.let { "T$it" },
-        gate?.takeIf { it.isNotBlank() }?.let { "G$it" },
+        terminal?.takeIf { it.isNotBlank() }?.let { "Terminal $it" },
+        gate?.takeIf { it.isNotBlank() }?.let { "Gate $it" },
     ).joinToString(" · ")
 }
 
@@ -85,6 +86,13 @@ fun FlightStatusRow(
 
     val depTermGate = formatTerminalGate(fS.departure.terminal, fS.departure.gate)
     val arrTermGate = formatTerminalGate(fS.arrival.terminal, fS.arrival.gate)
+
+    val showTerminalGate = listOf(
+        fS.departure.terminal,
+        fS.departure.gate,
+        fS.arrival.terminal,
+        fS.arrival.gate,
+    ).any { !it.isNullOrBlank() }
 
     val isArrived = fS.status == FlightStatus.ARRIVED
     val isDeparted = isArrived || fS.status in setOf(
@@ -139,7 +147,18 @@ fun FlightStatusRow(
             )
         }
 
-        // 2. City / Municipality · Date (e.g. "New York · Sat, Oct 3")
+        // 2. Terminal and gate (when at least one is present)
+        if (showTerminalGate) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                LightText(depTermGate, variant = LightTextVariant.Detail, lighten = true)
+                LightText(arrTermGate, variant = LightTextVariant.Detail, lighten = true)
+            }
+        }
+
+        // 3. City / Municipality · Date (e.g. "New York · Sat, Oct 3")
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -148,36 +167,31 @@ fun FlightStatusRow(
             LightText(arrLocationDate, variant = LightTextVariant.Detail)
         }
 
-        // 3. Movement Status Labels (with terminal/gate when available)
+        // 4. Active times and movement status labels
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            LightText(
-                listOfNotNull(
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                LightText("$depTimeFormatted ", variant = LightTextVariant.Copy)
+                LightText(
                     departureStatusLabel,
-                    depTermGate.takeIf { it.isNotEmpty() },
-                ).joinToString(" · "),
-                variant = LightTextVariant.Fine,
-                lighten = true,
-            )
-            LightText(
-                listOfNotNull(
+                    variant = LightTextVariant.Detail,
+                    lighten = true,
+                )
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                LightText(
                     arrivalStatusLabel,
-                    arrTermGate.takeIf { it.isNotEmpty() },
-                ).joinToString(" · "),
-                variant = LightTextVariant.Fine,
-                lighten = true,
-            )
-        }
-
-        // 4. Active Times
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            LightText(depTimeFormatted, variant = LightTextVariant.Copy)
-            LightText(arrTimeFormatted, variant = LightTextVariant.Copy)
+                    variant = LightTextVariant.Detail,
+                    lighten = true,
+                )
+                LightText(" $arrTimeFormatted", variant = LightTextVariant.Copy)
+            }
         }
 
         // 5. Crossed out scheduled time if different
