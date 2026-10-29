@@ -39,7 +39,7 @@ class HistoryScreen(
         val searchHistory = viewModel.searchHistory.collectAsState()
 
         TabScaffold(
-            title = "Search History",
+            title = "History",
             activeTab = FlightsTab.History,
             onNavigate = { navigateTo(it) },
         ) {
