@@ -2,7 +2,7 @@
   <img src="assets/flights.png" alt="Flights" height="400">
 </p>
 
-<table style="border: none;">
+<table border='none'>
   <tr>
     <td width="40%" align="center">
     <img src="assets/search-and-status.png" alt="Search and Status" height="300">
@@ -12,6 +12,9 @@
       <p>Search by flight number to view available flight status and departure and arrival details. Recent searches are saved locally.</p>
     </td>
   </tr>
+</table>
+
+<table border='none'>
   <tr>
     <td width="60%">
       <h2>API Key and Privacy</h2>
