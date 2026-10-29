@@ -2,7 +2,7 @@
   <img src="assets/flights.png" alt="Flights" height="400">
 </p>
 
-<img src="assets/status.png" alt="Status" align="right" height="200">
+<img src="assets/status.png" alt="Status" align="right" height="175">
 
 A flight-status lookup tool for the Light Phone III, built with the [Light SDK](https://github.com/lightphone/light-sdk).
 
