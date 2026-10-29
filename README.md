@@ -2,7 +2,7 @@
   <img src="assets/flights.png" alt="Flights" height="400">
 </p>
 
-<img src="assets/status.png" alt="Status" align="right" height="250">
+<img src="assets/status.png" alt="Status" align="right" height="175">
 
 A flight-status lookup tool for the Light Phone III, built with the [Light SDK](https://github.com/lightphone/light-sdk).
 
@@ -12,7 +12,7 @@ Recent searches are saved locally and can accessible from the app's history scre
 
 <br clear="right">
 
-<img src="assets/secure.png" alt="Secure" align="left" height="200">
+<img src="assets/secure.png" alt="Secure" align="left" height="175">
 
 Flights uses AeroDataBox through [RapidAPI](https://rapidapi.com/aedbx-aedbx/api/aerodatabox). Add your RapidAPI key in the app's Settings. The key is stored on your device and sent with API requests.
 
