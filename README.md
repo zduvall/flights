@@ -25,9 +25,9 @@ Flights has no app-operated backend, analytics, or advertising.
 ## Gallery
 
 <p align="center">
-  <img src="assets/search.png" alt="Flight search screen" height="360">
-  <img src="assets/history.png" alt="Flight history screen" height="360">
-  <img src="assets/settings.png" alt="Flight settings screen" height="360">
+  <img src="assets/search.png" alt="Flight search screen" width="30%">
+  <img src="assets/history.png" alt="Flight history screen" width="30%">
+  <img src="assets/settings.png" alt="Flight settings screen" width="30%">
 </p>
 
 ## Development
