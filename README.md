@@ -20,8 +20,6 @@ Flights has no app-operated backend, analytics, or advertising.
 
 <br clear="left">
 
----
-
 ## Gallery
 
 <p align="center">
