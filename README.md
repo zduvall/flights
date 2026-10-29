@@ -17,7 +17,6 @@
 <table border='none'>
   <tr>
     <td width="60%">
-      <h2>API Key and Privacy</h2>
       <p>Flights uses AeroDataBox through <a href="https://rapidapi.com/aedbx-aedbx/api/aerodatabox">RapidAPI</a>. Add your RapidAPI key in the app's Settings. The key is stored on your device and sent with API requests. Flight-number searches and API-usage checks are sent to RapidAPI to retrieve results. Flights has no app-operated backend, analytics, or advertising.</p>
     </td>
     <td width="40%" align="center">
