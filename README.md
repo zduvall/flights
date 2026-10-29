@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/flights.png" alt="Flights" height="400">
+  <img src="assets/flights.png" alt="Flights" height="300">
 </p>
 
 <img src="assets/status.png" alt="Status" align="right" height="120">
