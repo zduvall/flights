@@ -15,7 +15,7 @@ Search by flight number to view available flight status and departure and arriva
 Flights uses AeroDataBox through [RapidAPI](https://rapidapi.com/aedbx-aedbx/api/aerodatabox). Add your RapidAPI key in the app's Settings. The key is stored on your device and sent with API requests. Flight-number searches and API-usage checks are sent to RapidAPI to retrieve results. Flights has no app-operated backend, analytics, or advertising.
 
 <p align="center">
-  <img src="assets/secure.png" alt="Secure" height="400">
+  <img src="assets/secure.png" alt="Secure" height="200">
 </p>
 
 ## Gallery
