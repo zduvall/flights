@@ -1,16 +1,16 @@
-<p align="center">
-  <img src="assets/flights.png" alt="Flights" height="300">
-</p>
-
-<img src="assets/status.png" alt="Status" align="right" height="120">
+<div align="center">
+  <img src="assets/flights.png" alt="Flights" height="350">
+</div>
 
 A flight-status lookup tool for the Light Phone III, built with the [Light SDK](https://github.com/lightphone/light-sdk).
 
-Search by flight number to view available flight status and departure and arrival details. Recent searches are saved locally.
+Search by flight number to view available flight status and departure and arrival details.
 
-<br clear="right">
+Recent searches are saved locally.
 
-<img src="assets/secure.png" alt="Secure" align="left" height="175">
+<div align="center">
+  <img src="assets/status.png" alt="Status"height="120">
+</div>
 
 Flights uses AeroDataBox through [RapidAPI](https://rapidapi.com/aedbx-aedbx/api/aerodatabox). Add your RapidAPI key in the app's Settings. The key is stored on your device and sent with API requests.
 
@@ -18,17 +18,19 @@ Flight-number searches and API-usage checks are sent to RapidAPI to retrieve res
 
 Flights has no app-operated backend, analytics, or advertising.
 
-<br clear="left">
+<div align="center">
+  <img src="assets/secure.png" alt="Secure" height="185">
+</div>
 
-## Gallery
+### Gallery
 
-<p align="center">
+<div align="center">
   <img src="assets/search.png" alt="Flight search screen" width="30%">
   <img src="assets/history.png" alt="Flight history screen" width="30%">
   <img src="assets/settings.png" alt="Flight settings screen" width="30%">
-</p>
+</div>
 
-## Development
+### Development
 
 See the [Light SDK README](https://github.com/lightphone/light-sdk/blob/main/README.md) for SDK setup, build, and run instructions.
 
