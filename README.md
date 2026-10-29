@@ -12,4 +12,4 @@ Flights uses AeroDataBox through [RapidAPI](https://rapidapi.com/aedbx-aedbx/api
 
 See the [Light SDK README](https://github.com/lightphone/light-sdk/blob/main/README.md) for SDK setup, build, and run instructions.
 
-For the optional Nix development environment and emulator scripts, see [`local-dev/README.md`](local-dev/README.md).
+For optional Nix development environment and emulator scripts, see [`local-dev/README.md`](local-dev/README.md).
