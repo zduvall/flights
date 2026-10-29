@@ -1,4 +1,6 @@
-![Flights](assets/flights.png)
+<p align="center">
+  <img src="assets/flights.png" alt="Flights" style="max-height: 400px; width: auto;">
+</p>
 
 A flight-status lookup tool for the Light Phone III, built with the [Light SDK](https://github.com/lightphone/light-sdk).
 
@@ -13,6 +15,10 @@ Search by flight number to view available flight status and departure and arriva
 ## API Key and Privacy
 
 Flights uses AeroDataBox through [RapidAPI](https://rapidapi.com/aedbx-aedbx/api/aerodatabox). Add your RapidAPI key in the app's Settings. The key is stored on your device and sent with API requests. Flight-number searches and API-usage checks are sent to RapidAPI to retrieve results. Flights has no app-operated backend, analytics, or advertising.
+
+<p align="center">
+  <img src="assets/secure.png" alt="Secure" style="max-height: 400px; width: auto;">
+</p>
 
 ## Development
 
