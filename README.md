@@ -6,7 +6,7 @@
 
 A flight-status lookup tool for the Light Phone III, built with the [Light SDK](https://github.com/lightphone/light-sdk).
 
-Search by flight number to view available flight status and departure and arrival details. Recent searches are saved locally and can accessible from the app's history screen.
+Search by flight number to view available flight status and departure and arrival details. Recent searches are saved locally.
 
 <br clear="right">
 
