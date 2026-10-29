@@ -12,7 +12,7 @@ Recent searches are saved locally and can accessible from the app's history scre
 
 <br clear="right">
 
-<img src="assets/secure.png" alt="Secure" align="left" height="200">
+<img src="assets/secure.png" alt="Secure" align="left" height="250">
 
 Flights uses AeroDataBox through [RapidAPI](https://rapidapi.com/aedbx-aedbx/api/aerodatabox). Add your RapidAPI key in the app's Settings. The key is stored on your device and sent with API requests.
 
