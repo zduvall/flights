@@ -21,9 +21,9 @@ Flights uses AeroDataBox through [RapidAPI](https://rapidapi.com/aedbx-aedbx/api
 ## Gallery
 
 <p align="center">
-  <img src="assets/search.png" alt="Flight search screen" width="30%" style="max-width: 240px; height: auto;">
-  <img src="assets/history.png" alt="Flight history screen" width="30%" style="max-width: 240px; height: auto;">
-  <img src="assets/settings.png" alt="Flight settings screen" width="30%" style="max-width: 240px; height: auto;">
+  <img src="assets/search.png" alt="Flight search screen" width="30%" >
+  <img src="assets/history.png" alt="Flight history screen" width="30%" >
+  <img src="assets/settings.png" alt="Flight settings screen" width="30%" >
 </p>
 
 ## Development
