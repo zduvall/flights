@@ -74,6 +74,9 @@
 
           # OpenSSL: required for AOSP platform keystore PKCS#12 conversion.
           pkgs.openssl
+
+          # cURL: required for downloading AOSP platform keys.
+          pkgs.curl
         ];
 
         # 2. Point JAVA_HOME, ANDROID_HOME, and ANDROID_SDK_ROOT to their Nix-managed paths.
