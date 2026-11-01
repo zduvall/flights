@@ -38,7 +38,7 @@ avdmanager create avd \
   --force
 ```
 
-_Creates a fresh virtual device named `LightPhone3` based on the AOSP Android 14 (API 34) x86_64 system image._
+_Creates a fresh virtual device named `LightPhone3` based on the AOSP Android 14 (API 34) `x86_64` system image._
 
 ### 2. Configure Light Phone III Display & Memory Limits
 
