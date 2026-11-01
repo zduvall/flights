@@ -78,7 +78,7 @@ Install official LightOS Emulator on the `LightPhone3` AVD -- provides a closer 
 
 _Pressing the Android Home button (`adb -e shell input keyevent KEYCODE_HOME`) will return to the LightOS interface rather than the default Android launcher._
 
-## 4. Building & Running Your Tool
+## 4. Building & Running the Tool
 
 ### 1. Configure the LightOS Emulator server
 
@@ -88,7 +88,7 @@ In `tool/lighttool.toml`, make sure `serverPackage` in the existing `[tool]` sec
 serverPackage = "com.thelightphone.sdk.emulator"
 ```
 
-### 2. Build, install, and launch your tool
+### 2. Build, install, and launch the tool
 
 Once the emulator is running and LightOS Emulator is installed, run this script to test code changes.
 
@@ -105,3 +105,11 @@ Before submitting Flights through the Light Phone Developer Dashboard, restore t
 ```toml
 serverPackage = "com.lightos"
 ```
+
+Increment the `versionCode`, update the `versionName` in `tool/lighttool.toml`, and then tag the release in Git.
+
+```zsh
+git tag flights-0.1.0 && git push origin flights-0.1.0
+```
+
+Use the git tag when submitting the Git Ref / SHA for my release.
