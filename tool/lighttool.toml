@@ -5,6 +5,8 @@ versionCode = 1
 versionName = "1.0.0"
 permissions = ["android.permission.INTERNET"]
 capabilities = []
-# for the LightOS emulator, use the line below and build with -DlightSdk.allowAltServerPackage=true
+# For the LightOS emulator, use the line below and build with -DlightSdk.allowAltServerPackage=true
+# ^^^ I have that `DlightSdk` setting in my build-install-launch.sh script
 # serverPackage = "com.thelightphone.sdk.emulator"
+# Use the setting below when submitting tool for production LightOS.
 serverPackage = "com.lightos"
