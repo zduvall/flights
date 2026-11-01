@@ -5,14 +5,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import com.thelightphone.flights.data.AeroDataBoxClient
 import com.thelightphone.flights.data.FlightsRepository
 import com.thelightphone.flights.data.SettingsRepository
@@ -33,6 +33,8 @@ import com.thelightphone.sdk.ui.LightTextVariant
 import com.thelightphone.sdk.ui.gridUnitsAsDp
 import com.thelightphone.sdk.ui.lightClickable
 import java.time.Instant
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
 
 @InitialScreen
 class SearchScreen(
@@ -117,14 +119,8 @@ class SearchScreen(
                     // Display the time since the last search for the current flight number
                     val searchedAtUtc = lastSearch?.searchedAtUtc
                     if (searchedAtUtc != null) {
-                        val searchedAt = Instant.parse(searchedAtUtc)
-                        val timeAgo = makeTimeAgo(searchedAt)
-                        LightText(
-                            text = "Refreshed $timeAgo",
-                            variant = LightTextVariant.Detail,
-                            modifier = Modifier.padding(bottom = 0.75f.gridUnitsAsDp()),
-                            lighten = true,
-                        )
+                        val searchedAt = remember(searchedAtUtc) { Instant.parse(searchedAtUtc) }
+                        RefreshedAgoText(searchedAt)
                     }
 
                     val flightStatus = lastSearch?.flights.orEmpty()
@@ -147,8 +143,33 @@ fun normalizeFlightNumber(flightNumber: String): String {
     return flightNumber.replace("\\s".toRegex(), "").uppercase()
 }
 
+/**
+ * Displays and periodically refreshes the relative time since [searchedAt].
+ */
+@Composable
+private fun RefreshedAgoText(searchedAt: Instant) {
+    val timeAgo by produceState(
+        initialValue = makeTimeAgo(searchedAt),
+        key1 = searchedAt,
+    ) {
+        // Auto-update timeAgo on a regular interval
+        value = makeTimeAgo(searchedAt)
+        while (true) {
+            delay(30.seconds)
+            value = makeTimeAgo(searchedAt)
+        }
+    }
+
+    LightText(
+        text = "Refreshed $timeAgo",
+        variant = LightTextVariant.Detail,
+        modifier = Modifier.padding(bottom = 0.75f.gridUnitsAsDp()),
+        lighten = true,
+    )
+}
+
 /* 
- * Returns a human-readable relative time string for the given Instant.
+ * Returns human-readable relative time string for the given Instant.
  */
 fun makeTimeAgo(searchedAt: Instant): CharSequence {
     val timeAgo = DateUtils.getRelativeTimeSpanString(
