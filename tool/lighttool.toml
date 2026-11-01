@@ -2,7 +2,7 @@
 id = "com.thelightphone.flights"
 label = "Flights"
 versionCode = 1
-versionName = "1.0.0"
+versionName = "0.1.0"
 permissions = ["android.permission.INTERNET"]
 capabilities = []
 # For the LightOS emulator, use the line below and build with -DlightSdk.allowAltServerPackage=true
