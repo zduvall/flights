@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.kotlin.jvm) apply false
-    // REF-agp9-build-fixes: don't know why, but don't have to comment out this one
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false

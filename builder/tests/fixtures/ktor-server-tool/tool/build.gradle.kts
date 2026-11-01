@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.application)
-    // REF-agp9-build-fixes: don't know why, but don't have to comment out this one
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)

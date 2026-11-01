@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
-    // REF-agp9-build-fixes: kotlin.android removed — AGP 9.0 includes Kotlin support natively; applying this plugin is a fatal error in AGP 9+
-    // alias(libs.plugins.kotlin.android)    
+    // REF-agp9-build-fixes: comment out next line for my local dev env — AGP 9.0 includes Kotlin support natively; applying this plugin is a fatal error in AGP 9+
+    alias(libs.plugins.kotlin.android)    
     alias(libs.plugins.kotlin.compose)
     `maven-publish`
 }
@@ -26,9 +26,10 @@ android {
     // REF-agp9-build-fixes: Required by AGP 9.0 — without this, `from(components["release"])` in
     // the maven-publish block below throws "SoftwareComponent 'release' not found". AGP 9 requires
     // explicitly declaring which variants to publish via android.publishing.
-    publishing {
-        singleVariant("release") {}
-    }
+    // Comment in below for my local dev build
+    // publishing {
+    //    singleVariant("release") {}
+    // }
 }
 
 kotlin {
