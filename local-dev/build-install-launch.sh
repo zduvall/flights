@@ -1,42 +1,51 @@
 #!/usr/bin/env bash
 
-# Compile changes, install the updated APK, and force-restart the app on the
-# running emulator.
-#
-# Steps:
-#   ./gradlew :tool:installDebug
-#     Compiles the :tool module and installs the new debug build onto the
-#     active emulator.
-#   adb shell am force-stop
-#     Stops any currently running instance so the app restarts cleanly.
-#   adb shell monkey
-#     Launches the app using its registered launcher intent, without requiring
-#     the activity class to be hardcoded.
-#
-# Requirements:
-#   Run from the repository root with the emulator online.
+# Compile changes, install the updated APK, and launch the app
+# on the official LightOS Emulator.
 
 set -Eeuo pipefail
-trap 'echo "ERROR: Command failed at line $LINENO (exit code $?)" >&2' ERR
+trap 'status=$?; echo "ERROR: Command failed at line $LINENO (exit code $status)" >&2' ERR
 
-# Print informational messages in cyan.
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT_DIR"
+
+ADB=(adb -e)
+PACKAGE_NAME="com.thelightphone.flights"
+EMULATOR_PACKAGE="com.thelightphone.sdk.emulator"
+APK_DIR="$ROOT_DIR/tool/build/outputs/apk/debug"
+
 info() {
   echo -e "\033[36m==> $*\033[0m"
 }
 
-info "Building and installing app..."
-./gradlew :tool:installDebug
+info "Checking emulator..."
+"${ADB[@]}" get-state >/dev/null
 
-info "Checking connected devices..."
-adb devices -l
+if ! "${ADB[@]}" shell pm path "$EMULATOR_PACKAGE" >/dev/null 2>&1; then
+  echo "ERROR: LightOS Emulator is not installed." >&2
+  echo "Run ./local-dev/setup-lightos-emulator.sh first." >&2
+  exit 1
+fi
 
-info "Force-stopping app..."
-adb shell am force-stop com.thelightphone.flights
+info "Building Flights..."
+./gradlew :tool:assembleDebug \
+  -DlightSdk.allowAltServerPackage=true
 
-info "Launching app..."
-adb shell monkey -p com.thelightphone.flights 1
+shopt -s nullglob
+APKS=("$APK_DIR"/*.apk)
 
-# NOTE: use -v for verbose output debugging
-# adb shell monkey -v -p com.thelightphone.flights 1
+if [[ "${#APKS[@]}" -ne 1 ]]; then
+  echo "Expected exactly one debug APK; found ${#APKS[@]}." >&2
+  exit 1
+fi
+
+info "Installing Flights..."
+"${ADB[@]}" install -r "${APKS[0]}"
+
+info "Force-stopping Flights..."
+"${ADB[@]}" shell am force-stop "$PACKAGE_NAME"
+
+info "Launching Flights..."
+"${ADB[@]}" shell monkey -p "$PACKAGE_NAME" 1
 
 info "Done."
