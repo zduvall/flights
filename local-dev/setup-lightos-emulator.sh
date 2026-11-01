@@ -178,3 +178,18 @@ fi
 
 echo "$UID_INFO"
 echo "==> LightOS Emulator successfully installed!"
+
+# Configure LightOS Emulator as the default launcher.
+echo "==> Setting LightOS Emulator as default launcher..."
+
+"${ADB[@]}" shell cmd package set-home-activity \
+  "$EMULATOR_PACKAGE/.MainActivity"
+
+# Disable Android animations to better match the physical Light Phone.
+echo "==> Disabling Android animations..."
+
+"${ADB[@]}" shell settings put global window_animation_scale 0
+"${ADB[@]}" shell settings put global transition_animation_scale 0
+"${ADB[@]}" shell settings put global animator_duration_scale 0
+
+echo "==> LightOS Emulator successfully installed and configured!"
