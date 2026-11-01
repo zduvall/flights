@@ -1,5 +1,6 @@
 package com.thelightphone.flights.ui.search
 
+import android.text.format.DateUtils
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,6 +32,7 @@ import com.thelightphone.sdk.ui.LightTextFieldUnderlineStyle
 import com.thelightphone.sdk.ui.LightTextVariant
 import com.thelightphone.sdk.ui.gridUnitsAsDp
 import com.thelightphone.sdk.ui.lightClickable
+import java.time.Instant
 
 @InitialScreen
 class SearchScreen(
@@ -129,4 +131,19 @@ class SearchScreen(
  */
 fun normalizeFlightNumber(flightNumber: String): String {
     return flightNumber.replace("\\s".toRegex(), "").uppercase()
+}
+
+/* 
+ * Returns a human-readable relative time string for the given Instant.
+ */
+fun makeTimeAgo(searchedAt: Instant): CharSequence {
+    val timeAgo = DateUtils.getRelativeTimeSpanString(
+        searchedAt.toEpochMilli(),
+        System.currentTimeMillis(),
+        DateUtils.MINUTE_IN_MILLIS,
+    )
+    if (timeAgo == "0 minutes ago") {
+        return "moments ago"
+    }
+    return timeAgo
 }
