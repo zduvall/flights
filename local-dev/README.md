@@ -4,7 +4,7 @@
 
 Quick reference for building, running, and testing tools locally on my machine.
 
-NOTE: `// REF-agp9-build-fixes` marks changes I made to avoid kotlin build errors in my local setup.
+NOTE: `// REF-agp9-build-fixes` marks changes I made to avoid kotlin build errors in local setup. These errors also exist on `main` -- tracked in [issue 310](https://github.com/lightphone/light-sdk/issues/310)
 
 ---
 
