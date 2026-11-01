@@ -110,7 +110,7 @@ class SearchScreen(
                 }
 
                 else -> {
-                    val flightStatus = searchHistoryValue[latestSearchValue].orEmpty()
+                    val flightStatus = searchHistoryValue[latestSearchValue]?.flights.orEmpty()
 
                     flightStatus.forEachIndexed { index, status ->
                         FlightStatusRow(status)

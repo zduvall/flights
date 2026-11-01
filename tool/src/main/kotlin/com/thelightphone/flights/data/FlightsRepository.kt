@@ -7,11 +7,19 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import com.thelightphone.flights.model.Flight
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import java.time.Instant
 
-typealias SearchHistory = LinkedHashMap<String, List<Flight>>
+@Serializable
+data class SearchEntry(
+    val flights: List<Flight>,
+    val searchedAtUtc: String
+)
+
+typealias SearchHistory = LinkedHashMap<String, SearchEntry>
 
 /**
  * Shared repository for flight search data.
@@ -40,7 +48,10 @@ class FlightsRepository(
             val json = it[searchHistoryKey] ?: "{}"
             val searchHistory = Json.decodeFromString<SearchHistory>(json)
             searchHistory.remove(flightNumber)
-            searchHistory[flightNumber] = flights
+            searchHistory[flightNumber] = SearchEntry(
+                flights = flights,
+                searchedAtUtc = Instant.now().toString()
+            )
             it[searchHistoryKey] = Json.encodeToString(searchHistory)
         }
     }
