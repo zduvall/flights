@@ -66,7 +66,7 @@ class SearchScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 1f.gridUnitsAsDp()),
+                    .padding(bottom = 0.25f.gridUnitsAsDp()),
                 verticalAlignment = Alignment.Bottom,
             ) {
                 LightTextField(
@@ -112,8 +112,22 @@ class SearchScreen(
                 }
 
                 else -> {
-                    val flightStatus = searchHistoryValue[latestSearchValue]?.flights.orEmpty()
+                    val lastSearch = searchHistoryValue[latestSearchValue]
 
+                    // Display the time since the last search for the current flight number
+                    val searchedAtUtc = lastSearch?.searchedAtUtc
+                    if (searchedAtUtc != null) {
+                        val searchedAt = Instant.parse(searchedAtUtc)
+                        val timeAgo = makeTimeAgo(searchedAt)
+                        LightText(
+                            text = "Refreshed $timeAgo",
+                            variant = LightTextVariant.Detail,
+                            modifier = Modifier.padding(bottom = 0.75f.gridUnitsAsDp()),
+                            lighten = true,
+                        )
+                    }
+
+                    val flightStatus = lastSearch?.flights.orEmpty()
                     flightStatus.forEachIndexed { index, status ->
                         FlightStatusRow(status)
                         if (index < flightStatus.lastIndex) {
