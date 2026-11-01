@@ -68,12 +68,40 @@ Re-run this script whenever you recreate the AVD or want to reapply these settin
 ./local-dev/start-emulator.sh
 ```
 
----
+## 3. LightOS Emulator Setup
 
-## 3. Building & Running Your Tool
+Install official LightOS Emulator on the `LightPhone3` AVD -- provides a closer simulation of actual Light Phone III. Run after starting the emulator:
 
-Once the emulator is running and connected (verify with `adb devices`):
+```zsh
+./local-dev/setup-lightos-emulator.sh
+```
+
+_Pressing the Android Home button (`adb -e shell input keyevent KEYCODE_HOME`) will return to the LightOS interface rather than the default Android launcher._
+
+## 4. Building & Running Your Tool
+
+### 1. Configure the LightOS Emulator server
+
+In `tool/lighttool.toml`, make sure `serverPackage` in the existing `[tool]` section:
+
+```toml
+serverPackage = "com.thelightphone.sdk.emulator"
+```
+
+### 2. Build, install, and launch your tool
+
+Once the emulator is running and LightOS Emulator is installed, run this script to test code changes.
 
 ```zsh
 ./local-dev/build-install-launch.sh
+```
+
+---
+
+## 5. Before Submitting
+
+Before submitting Flights through the Light Phone Developer Dashboard, restore the production LightOS server package in `tool/lighttool.toml`:
+
+```toml
+serverPackage = "com.lightos"
 ```
