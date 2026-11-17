@@ -123,6 +123,7 @@ serverPackage = "com.lightos"
 Increment the `versionCode`, update the `versionName` in `tool/lighttool.toml`, and then tag the release in Git.
 
 ```zsh
+# When pushing, update tag from 0.1.0 to match the new release
 git tag flights-0.1.0 && git push origin flights-0.1.0
 ```
 
