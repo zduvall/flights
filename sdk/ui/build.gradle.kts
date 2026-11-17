@@ -27,13 +27,6 @@ android {
         targetCompatibility = JavaVersion.toVersion(rootProject.ext["jvmTarget"] as String)
     }
 
-    // REF-agp9-build-fixes: Required by AGP 9.0 — without this, `from(components["release"])` in
-    // the maven-publish block below throws "SoftwareComponent 'release' not found". AGP 9 requires
-    // explicitly declaring which variants to publish via android.publishing.
-    // Comment in below for my local dev build
-    // publishing {
-    //    singleVariant("release") {}
-    // }
 }
 
 kotlin {
