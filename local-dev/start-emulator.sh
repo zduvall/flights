@@ -12,6 +12,9 @@
 #                          Configures explicit public DNS servers (Google &
 #                          Cloudflare); prevents DNS lookup failures on macOS
 #                          where default host DNS bridging can fail.
+#   -partition-size 4096   Sets the system partition size to 4 GB.
+#                          The default is too small for the LightOS Emulator
+#                          APK (~93 MB).
 
 set -euo pipefail
 
@@ -22,4 +25,5 @@ emulator \
   -writable-system \
   -no-snapshot-load \
   -adb-path "$ADB_PATH" \
-  -dns-server 8.8.8.8,1.1.1.1
+  -dns-server 8.8.8.8,1.1.1.1 \
+  -partition-size 4096

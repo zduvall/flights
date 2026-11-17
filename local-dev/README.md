@@ -62,25 +62,23 @@ Re-run this script whenever you recreate the AVD or want to reapply these settin
 
 ---
 
-## 2. Running the Emulator
+## 2. LightOS Emulator Setup (one-time setup)
+
+Install the LightOS Emulator as a privileged system app on the AVD. This provides the LightOS launcher and server that tools communicate with at runtime — without it, you just get the stock Android launcher.
+
+**Run this once** after creating the AVD (or after wiping/recreating it). It persists across emulator restarts — you do NOT need to re-run it each time you start the emulator.
 
 ```zsh
+# Start the emulator first
 ./local-dev/start-emulator.sh
-```
 
-## 3. LightOS Emulator Setup
-
-Install official LightOS Emulator on the `LightPhone3` AVD -- provides a closer simulation of actual Light Phone III. Run after starting the emulator:
-
-```zsh
+# Then, in a separate terminal, install LightOS Emulator
 ./local-dev/setup-lightos-emulator.sh
 ```
 
-_Pressing the Android Home button (`adb -e shell input keyevent KEYCODE_HOME`) will return to the LightOS interface rather than the default Android launcher._
+_If the LightOS launcher is missing after a restart, re-run `setup-lightos-emulator.sh`._
 
-## 4. Building & Running the Tool
-
-### 1. Configure the LightOS Emulator server
+### Configure the LightOS Emulator server
 
 In `tool/lighttool.toml`, make sure `serverPackage` in the existing `[tool]` section:
 
@@ -88,9 +86,25 @@ In `tool/lighttool.toml`, make sure `serverPackage` in the existing `[tool]` sec
 serverPackage = "com.thelightphone.sdk.emulator"
 ```
 
-### 2. Build, install, and launch the tool
+---
 
-Once the emulator is running and LightOS Emulator is installed, run this script to test code changes.
+## 3. Daily Dev Workflow
+
+Once initial setup is complete (sections 0–2), the day-to-day cycle is just two commands:
+
+```zsh
+# 1. Start the emulator (in its own terminal)
+./local-dev/start-emulator.sh
+
+# 2. Build, install, and launch the tool
+./local-dev/build-install-launch.sh
+```
+
+_Pressing the Android Home button (`adb -e shell input keyevent KEYCODE_HOME`) will return to the LightOS interface rather than the default Android launcher._
+
+## 4. Building & Running the Tool
+
+Build, install, and launch the tool. Run this each time you want to test code changes.
 
 ```zsh
 ./local-dev/build-install-launch.sh
@@ -98,7 +112,7 @@ Once the emulator is running and LightOS Emulator is installed, run this script 
 
 ---
 
-## 5. Before Submitting
+## 5. Before Submitting a Release
 
 Before submitting Flights through the Light Phone Developer Dashboard, restore the production LightOS server package in `tool/lighttool.toml`:
 
