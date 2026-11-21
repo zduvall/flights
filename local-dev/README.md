@@ -97,22 +97,15 @@ Once initial setup is complete (sections 0–2), the day-to-day cycle is just tw
 ./local-dev/start-emulator.sh
 
 # 2. Build, install, and launch the tool
+# - Use this any time you want to test changes to the tool
 ./local-dev/build-install-launch.sh
 ```
 
 _Pressing the Android Home button (`adb -e shell input keyevent KEYCODE_HOME`) will return to the LightOS interface rather than the default Android launcher._
 
-## 4. Building & Running the Tool
-
-Build, install, and launch the tool. Run this each time you want to test code changes.
-
-```zsh
-./local-dev/build-install-launch.sh
-```
-
 ---
 
-## 5. Before Submitting a Release
+## 4. Before Submitting a Release
 
 Before submitting Flights through the Light Phone Developer Dashboard, restore the production LightOS server package in `tool/lighttool.toml`:
 
