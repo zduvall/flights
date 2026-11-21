@@ -25,9 +25,9 @@ private data class TabConfig(
 )
 
 private val tabs = listOf(
+    TabConfig(FlightsTab.Settings, LightIcons.SETTINGS, "Settings", ::SettingsScreen),
     TabConfig(FlightsTab.Search, LightIcons.AIRPLANE, "Search", ::SearchScreen),
     TabConfig(FlightsTab.History, LightIcons.LIST, "History", ::HistoryScreen),
-    TabConfig(FlightsTab.Settings, LightIcons.SETTINGS, "Settings", ::SettingsScreen),
 )
 
 @Composable
